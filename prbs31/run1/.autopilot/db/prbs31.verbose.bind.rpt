@@ -1,0 +1,464 @@
+
+
+================================================================
+== Vivado HLS Report for 'prbs31'
+================================================================
+* Date:           Tue Jun 20 14:37:16 2017
+
+* Version:        2016.4 (Build 1756540 on Mon Jan 23 19:31:01 MST 2017)
+* Project:        prbs31
+* Solution:       run1
+* Product family: zynq
+* Target device:  xc7z020clg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |  10.00|      1.37|        1.10|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+---------+
+    |  Latency  |  Interval | Pipeline|
+    | min | max | min | max |   Type  |
+    +-----+-----+-----+-----+---------+
+    |    0|    0|    1|    1|   none  |
+    +-----+-----+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 0
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states: 1
+* Pipeline: 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 
+* FSM state operations: 
+
+ <State 1>: 1.37ns
+ST_1: StgValue_2 (3)  [1/1] 0.00ns
+:0  call void (...)* @_ssdm_op_SpecBitsMap(i32* %hw_out) nounwind, !map !7
+
+ST_1: StgValue_3 (4)  [1/1] 0.00ns
+:1  call void (...)* @_ssdm_op_SpecTopModule([7 x i8]* @prbs31_str) nounwind
+
+ST_1: a_load (5)  [1/1] 0.00ns  loc: prbs31.c:5
+:2  %a_load = load i32* @a, align 4
+
+ST_1: tmp (6)  [1/1] 0.00ns  loc: prbs31.c:5
+:3  %tmp = call i1 @_ssdm_op_BitSelect.i1.i32.i32(i32 %a_load, i32 30)
+
+ST_1: tmp_1 (7)  [1/1] 0.00ns  loc: prbs31.c:5
+:4  %tmp_1 = call i1 @_ssdm_op_BitSelect.i1.i32.i32(i32 %a_load, i32 27)
+
+ST_1: newbit (8)  [1/1] 1.37ns  loc: prbs31.c:5
+:5  %newbit = xor i1 %tmp, %tmp_1
+
+ST_1: tmp_2 (9)  [1/1] 0.00ns  loc: prbs31.c:5
+:6  %tmp_2 = trunc i32 %a_load to i30
+
+ST_1: tmp_5 (10)  [1/1] 0.00ns  loc: prbs31.c:6
+:7  %tmp_5 = call i31 @_ssdm_op_BitConcatenate.i31.i30.i1(i30 %tmp_2, i1 %newbit)
+
+ST_1: tmp_5_cast (11)  [1/1] 0.00ns  loc: prbs31.c:6
+:8  %tmp_5_cast = zext i31 %tmp_5 to i32
+
+ST_1: StgValue_11 (12)  [1/1] 0.00ns  loc: prbs31.c:6
+:9  store i32 %tmp_5_cast, i32* @a, align 4
+
+ST_1: StgValue_12 (13)  [1/1] 0.00ns  loc: prbs31.c:7
+:10  call void @_ssdm_op_Write.ap_auto.i32P(i32* %hw_out, i32 %tmp_5_cast) nounwind
+
+ST_1: StgValue_13 (14)  [1/1] 0.00ns  loc: prbs31.c:8
+:11  ret void
+
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+STG Binding: 
+---------------- STG Properties BEGIN ----------------
+- Is combinational: 0
+- Is one-state seq: 1
+- Is datapath-only: 0
+- Is clock enabled: 0
+- Is pipelined: 0
+- Is top level: 1
+Port [ Return ] is wired: 1; IO mode=ap_ctrl_hs:ce=0
+Port [ hw_out]:  wired=1; compound=0; hidden=0; nouse=0; global=0; static=0; extern=0; dir=1; type=0; pingpong=0; private_global=0; IO mode=ap_vld:ce=0
+Port [ a]:  wired=0; compound=0; hidden=1; nouse=0; global=1; static=1; extern=0; dir=2; type=0; pingpong=0; private_global=1; linkage=7; visibility=0; IO mode=ap_ovld:ce=0
+---------------- STG Properties END ------------------
+
+---------------- Datapath Model BEGIN ----------------
+
+<LifeTime>
+<method=bitvector/>
+StgValue_2  (specbitsmap   ) [ 00]
+StgValue_3  (spectopmodule ) [ 00]
+a_load      (load          ) [ 00]
+tmp         (bitselect     ) [ 00]
+tmp_1       (bitselect     ) [ 00]
+newbit      (xor           ) [ 00]
+tmp_2       (trunc         ) [ 00]
+tmp_5       (bitconcatenate) [ 00]
+tmp_5_cast  (zext          ) [ 00]
+StgValue_11 (store         ) [ 00]
+StgValue_12 (write         ) [ 00]
+StgValue_13 (ret           ) [ 00]
+</LifeTime>
+
+<model>
+
+<comp_list>
+<comp id="0" class="1000" name="hw_out">
+<pin_list>
+<pin id="1" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="hw_out"/></StgValue>
+</bind>
+</comp>
+
+<comp id="2" class="1000" name="a">
+<pin_list>
+<pin id="3" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="a"/></StgValue>
+</bind>
+</comp>
+
+<comp id="4" class="1001" name="const_4">
+<pin_list>
+<pin id="5" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecBitsMap"/></StgValue>
+</bind>
+</comp>
+
+<comp id="6" class="1001" name="const_6">
+<pin_list>
+<pin id="7" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecTopModule"/></StgValue>
+</bind>
+</comp>
+
+<comp id="8" class="1001" name="const_8">
+<pin_list>
+<pin id="9" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="prbs31_str"/></StgValue>
+</bind>
+</comp>
+
+<comp id="10" class="1001" name="const_10">
+<pin_list>
+<pin id="11" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_BitSelect.i1.i32.i32"/></StgValue>
+</bind>
+</comp>
+
+<comp id="12" class="1001" name="const_12">
+<pin_list>
+<pin id="13" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="14" class="1001" name="const_14">
+<pin_list>
+<pin id="15" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="16" class="1001" name="const_16">
+<pin_list>
+<pin id="17" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_BitConcatenate.i31.i30.i1"/></StgValue>
+</bind>
+</comp>
+
+<comp id="18" class="1001" name="const_18">
+<pin_list>
+<pin id="19" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_Write.ap_auto.i32P"/></StgValue>
+</bind>
+</comp>
+
+<comp id="20" class="1004" name="StgValue_12_write_fu_20">
+<pin_list>
+<pin id="21" dir="0" index="0" bw="0" slack="0"/>
+<pin id="22" dir="0" index="1" bw="32" slack="0"/>
+<pin id="23" dir="0" index="2" bw="31" slack="0"/>
+<pin id="24" dir="1" index="3" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="write(1151) " fcode="write"/>
+<opset="StgValue_12/1 "/>
+</bind>
+</comp>
+
+<comp id="27" class="1004" name="a_load_load_fu_27">
+<pin_list>
+<pin id="28" dir="0" index="0" bw="32" slack="0"/>
+<pin id="29" dir="1" index="1" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="load(27) " fcode="load"/>
+<opset="a_load/1 "/>
+</bind>
+</comp>
+
+<comp id="31" class="1004" name="tmp_fu_31">
+<pin_list>
+<pin id="32" dir="0" index="0" bw="1" slack="0"/>
+<pin id="33" dir="0" index="1" bw="32" slack="0"/>
+<pin id="34" dir="0" index="2" bw="6" slack="0"/>
+<pin id="35" dir="1" index="3" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<opcode="bitselect(1000) " fcode="bitselect"/>
+<opset="tmp/1 "/>
+</bind>
+</comp>
+
+<comp id="39" class="1004" name="tmp_1_fu_39">
+<pin_list>
+<pin id="40" dir="0" index="0" bw="1" slack="0"/>
+<pin id="41" dir="0" index="1" bw="32" slack="0"/>
+<pin id="42" dir="0" index="2" bw="6" slack="0"/>
+<pin id="43" dir="1" index="3" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<opcode="bitselect(1000) " fcode="bitselect"/>
+<opset="tmp_1/1 "/>
+</bind>
+</comp>
+
+<comp id="47" class="1004" name="newbit_fu_47">
+<pin_list>
+<pin id="48" dir="0" index="0" bw="1" slack="0"/>
+<pin id="49" dir="0" index="1" bw="1" slack="0"/>
+<pin id="50" dir="1" index="2" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<opcode="xor(25) " fcode="xor"/>
+<opset="newbit/1 "/>
+</bind>
+</comp>
+
+<comp id="53" class="1004" name="tmp_2_fu_53">
+<pin_list>
+<pin id="54" dir="0" index="0" bw="32" slack="0"/>
+<pin id="55" dir="1" index="1" bw="30" slack="0"/>
+</pin_list>
+<bind>
+<opcode="trunc(33) " fcode="trunc"/>
+<opset="tmp_2/1 "/>
+</bind>
+</comp>
+
+<comp id="57" class="1004" name="tmp_5_fu_57">
+<pin_list>
+<pin id="58" dir="0" index="0" bw="31" slack="0"/>
+<pin id="59" dir="0" index="1" bw="30" slack="0"/>
+<pin id="60" dir="0" index="2" bw="1" slack="0"/>
+<pin id="61" dir="1" index="3" bw="31" slack="0"/>
+</pin_list>
+<bind>
+<opcode="bitconcatenate(1004) " fcode="bitconcatenate"/>
+<opset="tmp_5/1 "/>
+</bind>
+</comp>
+
+<comp id="65" class="1004" name="tmp_5_cast_fu_65">
+<pin_list>
+<pin id="66" dir="0" index="0" bw="31" slack="0"/>
+<pin id="67" dir="1" index="1" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="zext(34) " fcode="zext"/>
+<opset="tmp_5_cast/1 "/>
+</bind>
+</comp>
+
+<comp id="70" class="1004" name="StgValue_11_store_fu_70">
+<pin_list>
+<pin id="71" dir="0" index="0" bw="31" slack="0"/>
+<pin id="72" dir="0" index="1" bw="32" slack="0"/>
+<pin id="73" dir="1" index="2" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="store(28) " fcode="store"/>
+<opset="StgValue_11/1 "/>
+</bind>
+</comp>
+
+</comp_list>
+
+<net_list>
+<net id="25"><net_src comp="18" pin="0"/><net_sink comp="20" pin=0"/></net>
+
+<net id="26"><net_src comp="0" pin="0"/><net_sink comp="20" pin=1"/></net>
+
+<net id="30"><net_src comp="2" pin="0"/><net_sink comp="27" pin=0"/></net>
+
+<net id="36"><net_src comp="10" pin="0"/><net_sink comp="31" pin=0"/></net>
+
+<net id="37"><net_src comp="27" pin="1"/><net_sink comp="31" pin=1"/></net>
+
+<net id="38"><net_src comp="12" pin="0"/><net_sink comp="31" pin=2"/></net>
+
+<net id="44"><net_src comp="10" pin="0"/><net_sink comp="39" pin=0"/></net>
+
+<net id="45"><net_src comp="27" pin="1"/><net_sink comp="39" pin=1"/></net>
+
+<net id="46"><net_src comp="14" pin="0"/><net_sink comp="39" pin=2"/></net>
+
+<net id="51"><net_src comp="31" pin="3"/><net_sink comp="47" pin=0"/></net>
+
+<net id="52"><net_src comp="39" pin="3"/><net_sink comp="47" pin=1"/></net>
+
+<net id="56"><net_src comp="27" pin="1"/><net_sink comp="53" pin=0"/></net>
+
+<net id="62"><net_src comp="16" pin="0"/><net_sink comp="57" pin=0"/></net>
+
+<net id="63"><net_src comp="53" pin="1"/><net_sink comp="57" pin=1"/></net>
+
+<net id="64"><net_src comp="47" pin="2"/><net_sink comp="57" pin=2"/></net>
+
+<net id="68"><net_src comp="57" pin="3"/><net_sink comp="65" pin=0"/></net>
+
+<net id="69"><net_src comp="65" pin="1"/><net_sink comp="20" pin=2"/></net>
+
+<net id="74"><net_src comp="65" pin="1"/><net_sink comp="70" pin=0"/></net>
+
+<net id="75"><net_src comp="2" pin="0"/><net_sink comp="70" pin=1"/></net>
+
+</net_list>
+
+</model> 
+---------------- Datapath Model END ------------------
+
+* FSMD analyzer results:
+  - Output states:
+	Port: hw_out | {1 }
+	Port: a | {1 }
+ - Input state : 
+	Port: prbs31 : a | {1 }
+  - Chain level:
+	State 1
+		tmp : 1
+		tmp_1 : 1
+		newbit : 2
+		tmp_2 : 1
+		tmp_5 : 2
+		tmp_5_cast : 3
+		StgValue_11 : 4
+		StgValue_12 : 4
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+
+* Functional unit list:
+|----------|-------------------------|---------|---------|
+| Operation|     Functional Unit     |    FF   |   LUT   |
+|----------|-------------------------|---------|---------|
+|    xor   |       newbit_fu_47      |    0    |    1    |
+|----------|-------------------------|---------|---------|
+|   write  | StgValue_12_write_fu_20 |    0    |    0    |
+|----------|-------------------------|---------|---------|
+| bitselect|        tmp_fu_31        |    0    |    0    |
+|          |       tmp_1_fu_39       |    0    |    0    |
+|----------|-------------------------|---------|---------|
+|   trunc  |       tmp_2_fu_53       |    0    |    0    |
+|----------|-------------------------|---------|---------|
+|bitconcatenate|       tmp_5_fu_57       |    0    |    0    |
+|----------|-------------------------|---------|---------|
+|   zext   |     tmp_5_cast_fu_65    |    0    |    0    |
+|----------|-------------------------|---------|---------|
+|   Total  |                         |    0    |    1    |
+|----------|-------------------------|---------|---------|
+
+Memories:
+N/A
+
+* Register list:
+N/A
+
+* Multiplexer (MUX) list: 
+|--------|------|------|------|--------|
+|  Comp  |  Pin | Size |  BW  | S x BW |
+|--------|------|------|------|--------|
+|  Total |      |      |      |    0   |
+|--------|------|------|------|--------|
+
+
+
+* Summary:
++-----------+--------+--------+
+|           |   FF   |   LUT  |
++-----------+--------+--------+
+|  Function |    0   |    1   |
+|   Memory  |    -   |    -   |
+|Multiplexer|    -   |    -   |
+|  Register |    -   |    -   |
++-----------+--------+--------+
+|   Total   |    0   |    1   |
++-----------+--------+--------+

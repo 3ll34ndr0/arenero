@@ -1,0 +1,19 @@
+   Build using "/home/lean/vivado/Vivado_HLS/2016.4/lnx64/tools/gcc/bin/g++"
+   Compiling apatb_prbs31.cpp
+   Compiling (apcc) prbs31.c_pre.c.tb.c
+INFO: [HLS 200-10] Running '/home/lean/vivado/Vivado_HLS/2016.4/bin/unwrapped/lnx64.o/apcc'
+INFO: [HLS 200-10] For user 'lean' on host 'guliguli' (Linux_x86_64 version 3.16.0-4-amd64) on Tue Jun 20 14:37:50 -03 2017
+INFO: [HLS 200-10] In directory '/home/lean/vivado/tp/prbs31/vivado/prbs31/run1/sim/wrapc'
+clang: warning: argument unused during compilation: '-fno-builtin-isinf'
+clang: warning: argument unused during compilation: '-fno-builtin-isnan'
+INFO: [APCC 202-3] Tmp directory is /tmp/apcc_db_lean/23121497980270880294
+INFO: [APCC 202-1] APCC is done.
+   Compiling (apcc) prbs31_test.c_pre.c.tb.c
+INFO: [HLS 200-10] Running '/home/lean/vivado/Vivado_HLS/2016.4/bin/unwrapped/lnx64.o/apcc'
+INFO: [HLS 200-10] For user 'lean' on host 'guliguli' (Linux_x86_64 version 3.16.0-4-amd64) on Tue Jun 20 14:37:56 -03 2017
+INFO: [HLS 200-10] In directory '/home/lean/vivado/tp/prbs31/vivado/prbs31/run1/sim/wrapc'
+clang: warning: argument unused during compilation: '-fno-builtin-isinf'
+clang: warning: argument unused during compilation: '-fno-builtin-isnan'
+INFO: [APCC 202-3] Tmp directory is /tmp/apcc_db_lean/23701497980276462845
+INFO: [APCC 202-1] APCC is done.
+   Generating cosim.tv.exe

@@ -1,0 +1,140 @@
+
+
+================================================================
+== Vivado HLS Report for 'prbs31'
+================================================================
+* Date:           Tue Jun 20 14:37:16 2017
+
+* Version:        2016.4 (Build 1756540 on Mon Jan 23 19:31:01 MST 2017)
+* Project:        prbs31
+* Solution:       run1
+* Product family: zynq
+* Target device:  xc7z020clg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |  10.00|      1.37|        1.10|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+---------+
+    |  Latency  |  Interval | Pipeline|
+    | min | max | min | max |   Type  |
+    +-----+-----+-----+-----+---------+
+    |    0|    0|    1|    1|   none  |
+    +-----+-----+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 0
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states: 1
+* Pipeline: 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 
+* FSM state operations: 
+
+ <State 1>: 1.37ns
+ST_1: StgValue_2 (3)  [1/1] 0.00ns
+:0  call void (...)* @_ssdm_op_SpecBitsMap(i32* %hw_out) nounwind, !map !7
+
+ST_1: StgValue_3 (4)  [1/1] 0.00ns
+:1  call void (...)* @_ssdm_op_SpecTopModule([7 x i8]* @prbs31_str) nounwind
+
+ST_1: a_load (5)  [1/1] 0.00ns  loc: prbs31.c:5
+:2  %a_load = load i32* @a, align 4
+
+ST_1: tmp (6)  [1/1] 0.00ns  loc: prbs31.c:5
+:3  %tmp = call i1 @_ssdm_op_BitSelect.i1.i32.i32(i32 %a_load, i32 30)
+
+ST_1: tmp_1 (7)  [1/1] 0.00ns  loc: prbs31.c:5
+:4  %tmp_1 = call i1 @_ssdm_op_BitSelect.i1.i32.i32(i32 %a_load, i32 27)
+
+ST_1: newbit (8)  [1/1] 1.37ns  loc: prbs31.c:5
+:5  %newbit = xor i1 %tmp, %tmp_1
+
+ST_1: tmp_2 (9)  [1/1] 0.00ns  loc: prbs31.c:5
+:6  %tmp_2 = trunc i32 %a_load to i30
+
+ST_1: tmp_5 (10)  [1/1] 0.00ns  loc: prbs31.c:6
+:7  %tmp_5 = call i31 @_ssdm_op_BitConcatenate.i31.i30.i1(i30 %tmp_2, i1 %newbit)
+
+ST_1: tmp_5_cast (11)  [1/1] 0.00ns  loc: prbs31.c:6
+:8  %tmp_5_cast = zext i31 %tmp_5 to i32
+
+ST_1: StgValue_11 (12)  [1/1] 0.00ns  loc: prbs31.c:6
+:9  store i32 %tmp_5_cast, i32* @a, align 4
+
+ST_1: StgValue_12 (13)  [1/1] 0.00ns  loc: prbs31.c:7
+:10  call void @_ssdm_op_Write.ap_auto.i32P(i32* %hw_out, i32 %tmp_5_cast) nounwind
+
+ST_1: StgValue_13 (14)  [1/1] 0.00ns  loc: prbs31.c:8
+:11  ret void
+
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 10ns, clock uncertainty: 1.1ns.
+
+ <State 1>: 1.37ns
+The critical path consists of the following:
+	'load' operation ('a_load', prbs31.c:5) on static variable 'a' [5]  (0 ns)
+	'xor' operation ('newbit', prbs31.c:5) [8]  (1.37 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A
