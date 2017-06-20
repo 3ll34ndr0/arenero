@@ -1,0 +1,131 @@
+\input{preamble}
+\everymath{\displaystyle} %Esto es para que la matemática dentro de texto sea más grande que el texto
+\begin{document}
+\coverpage{Pseudo Random Binary Sequence con Vivado HLS}
+
+\section{Introducción}
+En el presente informe, mostraremos los resultados de utilizar la herramienta de síntesis de alto nivel, aplicada a un código fuente en C. El circuito que queremos implementar es un generador de PRBS (Pseudo Random Binary Sequence). Implementamos una PRBS de 31.
+
+\section{Implementación}
+\paragraph{PRBS31}
+En este caso, el polinomio generador que usamos es el siguente:
+\begin{equation*}
+\mbox{PRBS7} = x^{31} + x^{28} + 1
+\end{equation*}
+Y el código fuente a sintetizar es el siguiente
+\begin{lstlisting}
+#include "prbs31.h"
+
+void prbs31(result_t * hw_out) {
+    static data_t a = SEED;
+        int newbit = (((a >> 30) ^ (a >> 27)) & 1);
+        a = ((a << 1) | newbit) & 0x7fffffff;
+        *hw_out = a;
+    }
+\end{lstlisting}
+Cuyo archivo de definiciones es:
+\begin{lstlisting}
+#ifndef _PRBS31_H
+#define _PRBS31_H
+#define SEED 0x02
+typedef int data_t;
+typedef int result_t;
+void prbs31(result_t * out);
+#endif
+\end{lstlisting}
+
+En el \emph{testbench} del circuito hemos calculado por software la misma función y comparado con lo que devuelve la función a sintetizar. Ademas, declaramos una condición de finalización de la simulación, ya una PRBS una vez terminado el ciclo, vuelve a repetir todos los valores. Declaramos que pare en la iteración 1000 aproximadamente.
+
+\paragraph{Resultado de la síntesis} El primer aspecto a resaltar es la performance de este circuito. Vemos en la figura \ref{fig:performance31} que la latencia es un ciclo de clock, y se estima que el período del mismo puede ser $1.37ns$
+
+\begin{figure}[!h]
+\centering
+\includegraphics[height=4.5cm]{figuras/performancePRBS31}
+\caption{Velocidad del clock y latencia}
+\label{fig:performance31}
+\end{figure}
+
+Sobre los recursos utilizados, el reporte de la figura \ref{fig:utilization31} nos muestra 32 flip flops y una LUT (que implementa la semi-suma). Esto nos muestra que la implementación de la PRBS si hizo muy eficientemente, ya que si lo hubíesemos descripto en algún HDL, esperáriamos 31 FF y una XOR.
+ 
+\begin{figure}[!h]
+\centering
+\includegraphics[height=4.9cm]{figuras/utilizationPRBS31}
+\caption{Recursos utilizados}
+\label{fig:utilization31}
+
+\end{figure}
+
+Sobre los puertos creados para el circuito, vemos en la figura \ref{fig:registersAndPortsPRBS31} el clock, reset, y otras señales auxiliares, además del puerto \emph{hw\_out} de salida de nuestro circuito.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[height=6.2cm]{figuras/registersAndPortsPRBS31}
+\caption{Puertos y registros}
+\label{fig:registersAndPortsPRBS31}
+\end{figure}
+
+Resumimos en la tabla \ref{tab:resumen31} los resultados de esta síntesis:
+\begin{table}[!h]
+\centering
+\caption{Resumen}
+\label{tab:resumen31}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Puerto & Descripción\\ \midrule
+Estimated clock period  & 1.37ns     \\ \midrule
+Worst case latency &  1 \\\midrule
+Number of FFs used: & 32\\\midrule
+Number of LUTs used: & 1 \\\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Simulación}
+
+Por último, hacemos una co-simulación con el RTL sintetizado para asegurarnos que todo está bien:
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/waveform-prbs31}
+\caption{Simulación del RTL}
+\label{fig:waveform-prbs31}
+\end{figure}
+\section{Optimizaciones}
+Por el tipo de circuito elegido, encontramos que no hay optimización alguna que se pueda realizar en este nivel del flujo de diseño, ya que el resultado de la primera síntesis nos brinda un bloque que resuelve el cálculo en un ciclo de reloj.
+
+\section{Conclusión}
+Partiendo del código fuente en C del circuito, hemos utilizado la herramienta de síntesis HLS de Vivado, con un resultado óptimo en la primera corrida. También hemos implementado una PRBS7 (no incluida en el informe por tener resultados análogos) con mucha facilidad y reutilizando el testbench. Por lo que pudimos ver que este flujo de diseño nos permite el desarrollo rápido de hardware utilizando conceptos de programación imperativa.
+
+\end{document}
+\paragraph{PRBS7}
+Utilizaremos el siguiente polinomio generador:
+\begin{equation*}
+\mbox{PRBS7} = x^7 + x^6 + 1
+\end{equation*}
+
+Código fuente a sintetizar:
+
+\paragraph{Código fuente en C}
+\begin{lstlisting}
+#include "prbs7.h"
+
+void prbs7(result_t * hw_out) {
+    static data_t a = SEED;
+        int newbit = (((a >> 6) ^ (a >> 5)) & 1);
+        a = ((a << 1) | newbit) & 0x7f;
+        *hw_out = a;
+    }
+}
+\end{lstlisting}
+
+
+Usamos las siguientes definiciones:
+\begin{lstlisting}
+#ifndef _PRBS7_H
+#define _PRBS7_H
+#define SEED 0x02
+typedef short   data_t;
+typedef short result_t;
+void prbs7(result_t * out);
+#endif
+\end{lstlisting}
+
+
