@@ -4,7 +4,7 @@
 \coverpage{Pseudo Random Binary Sequence con Vivado HLS}
 
 \section{Introducción}
-En el presente informe, mostraremos los resultados de utilizar la herramienta de síntesis de alto nivel, aplicada a un código fuente en C. El circuito que queremos implementar es un generador de PRBS (Pseudo Random Binary Sequence). Implementamos una PRBS de 31.
+En el presente informe, mostraremos los resultados de utilizar la herramienta de síntesis de alto nivel, aplicada a un código fuente en C. El circuito que queremos implementar es un generador de PRBS (Pseudo Random Binary Sequence). Implementamos una PRBS de 31 bits.
 
 \section{Implementación}
 \paragraph{PRBS31}
@@ -34,7 +34,7 @@ void prbs31(result_t * out);
 #endif
 \end{lstlisting}
 
-En el \emph{testbench} del circuito hemos calculado por software la misma función y comparado con lo que devuelve la función a sintetizar. Ademas, declaramos una condición de finalización de la simulación, ya una PRBS una vez terminado el ciclo, vuelve a repetir todos los valores. Declaramos que pare en la iteración 1000 aproximadamente.
+En el \emph{testbench} del circuito hemos calculado por software la misma función y comparado con lo que devuelve la función a sintetizar. Ademas, declaramos una condición de finalización de la simulación, ya que una PRBS una vez terminado el ciclo, vuelve a repetir todos los valores. Declaramos que pare en la iteración 1000 aproximadamente.
 
 \paragraph{Resultado de la síntesis} El primer aspecto a resaltar es la performance de este circuito. Vemos en la figura \ref{fig:performance31} que la latencia es un ciclo de clock, y se estima que el período del mismo puede ser $1.37ns$
 
@@ -85,7 +85,7 @@ Por último, hacemos una co-simulación con el RTL sintetizado para asegurarnos 
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/waveform-prbs31}
-\caption{Simulación del RTL}
+\caption{Extracto de la simulación del RTL}
 \label{fig:waveform-prbs31}
 \end{figure}
 \section{Optimizaciones}
